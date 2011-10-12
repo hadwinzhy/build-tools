@@ -1,12 +1,17 @@
 import Constant
 
 class Project():
-	name = "" #CableBay
-	workspace4_path = ""
-
+	name = '' #CableBay
+	workspace_path = ''
+	latestCommit = ''
+	sdk_version = '' #11
+	build_method = '' #verify release nightly
+	smb_addr = ''
+	
 	def project_init(self):
 		if self.name == Constant.CableBay:
-			self.sdk_path = Constant.sdk_base_path + "android-11/"
+			self.sdk_version = '11'
+			self.sdk_path = Constant.sdk_base_path + 'platforms/android-' + self.sdk_version + '/'
 			self.keystore_path = Constant.keystore_base_path + "sMedio-sh-android-keystore"
 			self.workspace_path = Constant.workspace_base_path + "BRANCH/CableBay/CableBay1.1/"
 

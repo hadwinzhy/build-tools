@@ -17,6 +17,12 @@ def checkDirs(dir_path):
 
 
 def myprint ( s ):
-	fd = open ('/tmp/log.txt', 'w+')
-	fd.write(s);
-	fd.close
+	print s
+	fd = open ('/tmp/log.txt', 'a')
+	fd.write(s +'\n')
+	fd.flush()
+	fd.close()
+
+
+def linux2windows( url ):
+	pass

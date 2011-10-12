@@ -10,6 +10,8 @@ from email.MIMEText import MIMEText
 from email.MIMEImage import MIMEImage
 import smtplib
 import Constant
+from Utils import myprint
+
 
 class Email():
     authInfo = {}
@@ -46,30 +48,30 @@ class Email():
         Hadwin '
         
         
-    def sendEmail(self, authInfo, fromAdd, toAdd, subject, plainText): 
-        strFrom = fromAdd
-        strTo = toAdd
-        server = authInfo.get('server')
-        user = authInfo.get('user')
-        passwd = authInfo.get('password')
+def sendEmail(self, authInfo, fromAdd, toAdd, subject, plainText): 
+	strFrom = fromAdd
+	strTo = toAdd
+	server = authInfo.get('server')
+	user = authInfo.get('user')
+	passwd = authInfo.get('password')
 
-        if not (server and user and passwd) :
-                print 'incomplete login info, exit now'
-                return
+	if not (server and user and passwd) :
+		myprint( 'incomplete login info, exit now' )
+	return
 
-        msgRoot = MIMEMultipart('related')
-        msgRoot['Subject'] = subject
-        msgRoot['From'] = strFrom
-        msgRoot['To'] = ', '.join(self.toAdd)
-        msgRoot.preamble = 'This is a multi-part message in MIME format.'
+	msgRoot = MIMEMultipart('related')
+	msgRoot['Subject'] = subject
+	msgRoot['From'] = strFrom
+	msgRoot['To'] = ', '.join(self.toAdd)
+	msgRoot.preamble = 'This is a multi-part message in MIME format.'
 
-        # Encapsulate the plain and HTML versions of the message body in an
-        # 'alternative' part, so message agents can decide which they want to display.
-        msgAlternative = MIMEMultipart('alternative')
-        msgRoot.attach(msgAlternative)
+	# Encapsulate the plain and HTML versions of the message body in an
+	# 'alternative' part, so message agents can decide which they want to display.
+	msgAlternative = MIMEMultipart('alternative')
+	msgRoot.attach(msgAlternative)
 
-        msgText = MIMEText(plainText, 'plain', 'utf-8')
-        msgAlternative.attach(msgText)
+	msgText = MIMEText(plainText, 'plain', 'utf-8')
+	msgAlternative.attach(msgText)
 
         #msgText = MIMEText(htmlText, 'html', 'utf-8')
         #msgAlternative.attach(msgText)
@@ -80,13 +82,11 @@ class Email():
         #msgImage.add_header('Content-ID', '<image1>')
         #msgRoot.attach(msgImage)
 
-        smtp = smtplib.SMTP()
-        smtp.set_debuglevel(1)
-        smtp.connect(server)
-        smtp.login(user, passwd)
-        smtp.sendmail(strFrom, strTo, msgRoot.as_string())
-        smtp.quit()
-        return
+	smtp = smtplib.SMTP()
+	smtp.set_debuglevel(1)
+	smtp.connect(server)
+	smtp.login(user, passwd)
+	smtp.sendmail(strFrom, strTo, msgRoot.as_string())
+	smtp.quit()
+	return
        
-if __name__ == '__main__':
-    Email()

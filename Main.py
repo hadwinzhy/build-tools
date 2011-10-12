@@ -4,9 +4,7 @@ Created on 2011-7-14
 @author: zheng
 '''
 
-import Constant
-import Init
-import P4
+import Constant, Init, P4, Build, Sign, Upload
 
 import sys
 
@@ -21,11 +19,13 @@ if __name__ == '__main__':
 	project.project_init()
 
 	P4.download( project )
-
-	print project.name
-
-
 	
+	Build.build( project )
+
+	Sign.sign( project)		
+
+	Upload.upload( project )
+
 #    project.apk_file_name = project.projectName + ".apk"
 #    if(sys.argv[1]=='--normal'):
 #	project.build_style="normal"
