@@ -10,10 +10,7 @@ import Constant
 from ftplib import FTP
 from Utils import myprint 
 
-#    def __init__( p):
-#        self.local_file_name = p.workspace_path + "bin/" + p.apk_file_name
-#        self.uploadSamba(p)
-#        self.uploadFTP(p)
+ctx = smbc.Context ()
 
 def upload( p ):
 	pre_path = Constant.smb_addr_base_path + p.name + '/'
@@ -28,13 +25,17 @@ def upload( p ):
 
 def uploadSamba ( p , folder_path):
 	#smb://192.168.10.44/root_home/CableBay/Nightly_build/15555/CableBay.apk'
-	ctx = smbc.Context ()
 	p.smb_addr = folder_path + p.name + '.apk'
 	ctx.mkdir( folder_path, 755 )
 	remote_file = ctx.open (p.smb_addr, os.O_CREAT | os.O_WRONLY)
 	local_file = open(p.workspace_path + "bin/" + p.name + '.apk')
 	remote_file.write(local_file.read())
 	myprint ( 'upload '+ p.smb_addr + '...' )
+
+def getPrevCommit ( p ):
+#	ctx.
+	pass
+
 
 '''        
     def uploadFTP( p):

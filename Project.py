@@ -4,6 +4,7 @@ class Project():
 	name = '' #CableBay
 	workspace_path = ''
 	latestCommit = ''
+	prevCommit = ''
 	sdk_version = '' #11
 	build_method = '' #verify release nightly
 	smb_addr = ''
