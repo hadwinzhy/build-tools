@@ -27,7 +27,7 @@ smb_addr = '192.168.10.44'
 smb_addr_base_path = 'smb://' + smb_addr + '/QAServer/'
 #ftp_addr = 'smedio.co-site.jp'
 #ftp_path = '/release-Build/'
-version = "Beta2"
+version = "GM5"
 
 
 log_path = '/tmp/log.txt'

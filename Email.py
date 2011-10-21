@@ -27,12 +27,12 @@ def send( p ):
 
 def getEmailList():
 	file = open(Constant.email_list_file)
-	email_list = ''
+	email_list = []
 	for lines in file:
-		email_list += lines[:-1]	
-	
+		email_list += [lines[:-1]]
+	print email_list	
 	#test
-	email_list = 'hadwin.zheng@smedio.com.cn'
+#	email_list = 'hadwin.zheng@smedio.com.cn'
 	return email_list
 
 def getEmailSubject( p ):
