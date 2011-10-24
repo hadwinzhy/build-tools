@@ -4,7 +4,7 @@ Created on 2011-7-14
 @author: zheng
 '''
 
-import Constant, Init, P4, Build, Sign, Upload, Email
+import Constant, Init, P4, Build, Sign, Upload, Email, Check
 
 import sys
 
@@ -19,6 +19,8 @@ if __name__ == '__main__':
 	project.project_init()
 
 	P4.download( project )
+
+	Check.check( project )
 	
 	Build.build( project )
 
