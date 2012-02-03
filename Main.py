@@ -20,15 +20,16 @@ if __name__ == '__main__':
 
 	P4.download( project )
 
-	Check.check( project )
+	P4.getDescribe (project , "1")
+#	Check.check( project )
 	
-	Build.build( project )
+#	Build.build( project )
 
-	Sign.sign( project)		
+#	Sign.sign( project)		
 
-	Upload.upload( project )
+#	Upload.upload( project )
 
-	Email.send( project )
+#	Email.send( project )
 
 #    project.apk_file_name = project.projectName + ".apk"
 #    if(sys.argv[1]=='--normal'):

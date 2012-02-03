@@ -84,4 +84,3 @@ def buildApk(p):
                + "_unsigned.apk -v -u -z " +  p.workspace_path + "bin/resources.ap -f " \
                +  p.workspace_path + "bin/classes.dex -nf " +  p.workspace_path + "libs/"
 	subprocess.call(command + '|'+ Constant.log_command, shell=True)
-        

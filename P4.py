@@ -30,18 +30,41 @@ def init( p ):
 
     
 def forceDownload():
-	print 'p4 sync -f ' + p4RemotePath + '#head' 
-	subprocess.call('p4 sync -f ' + p4RemotePath + '#head  |' + Constant.log_command, shell = True)
+	command = 'p4 sync -f ' + p4RemotePath + '#head' 
+	subprocess.call(command + ' | ' + Constant.log_command, shell = True)
 
 	
 def getLatestCommit ():
-		p = subprocess.Popen('p4 changes -s submitted  -m 1 ' + p4RemotePath, shell=True , stdout=subprocess.PIPE)
-		output = p.communicate(subprocess.PIPE)[0]
-		pattern = re.compile(r'\D+(\d+)\D+')
-		match = pattern.match(output)
-		if match:   
-			lastestCommit = match.group(1)
-		return lastestCommit
-#            today = time.strftime("%Y_%m_%d", time.localtime())
-#            p.folder_name = p.pName + "_" + Constant.version + "_" + p.lastestCommit \
-#               + "_" + today
+	pipe = subprocess.Popen('p4 changes -s submitted  -m 1 ' + p4RemotePath, shell=True , stdout=subprocess.PIPE)
+	output = pipe.communicate(subprocess.PIPE)[0]
+	pattern = re.compile(r'\D+(\d+)\D+')
+	result = pattern.match(output)
+	if result:   
+		latestCommit = result.group(1)
+	return latestCommit
+
+
+def getDescribe ( p , preCommit ):
+	#test
+	commits = []
+	preCommit = '15578'
+	command = 'p4 changes -s submitted ' + p4RemotePath 
+	pipe = subprocess.Popen(command + ' | ' + Constant.log_command, shell=True , stdout=subprocess.PIPE)
+	output = pipe.communicate(subprocess.PIPE)[0]
+	lines = re.split('\n', output)
+	for line in lines:
+		pattern = re.compile ('Change (\d+) on')
+		result = pattern.match(line)
+		if result :
+			num = result.group(1)
+			if num <= p.latestCommit and num >= preCommit :
+				print num
+				commits += [num]
+	for num in commits:
+		command = 'p4 describe -s ' + num
+		pipe = subprocess.Popen(command + ' | ' + Constant.log_command, shell=True , stdout=subprocess.PIPE)
+		output = pipe.communicate(subprocess.PIPE)[0]
+		print output
+
+
+
